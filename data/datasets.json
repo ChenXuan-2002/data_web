@@ -1,0 +1,78 @@
+[
+  {
+    "slug": "mouse-behavior-v1",
+    "title": "小鼠行为学数据集（V1）",
+    "summary": "包含开放场、旷场、强迫游泳等经典范式的行为轨迹与评分结果。",
+    "methods_html": "<p>采用标准 SPF 条件下 8–12 周龄 C57BL/6J 小鼠。开放场测试 10 分钟，追踪频率 30 Hz，使用 EthoVision XT 进行轨迹识别与分段...</p>",
+    "variables": [
+      {
+        "name": "mouse_id",
+        "label": "个体编号",
+        "unit": "",
+        "type": "string",
+        "allowed_values": "",
+        "description": "实验动物唯一标识"
+      },
+      {
+        "name": "total_distance",
+        "label": "总运动距离",
+        "unit": "m",
+        "type": "float",
+        "allowed_values": "",
+        "description": "测试期内累计位移长度"
+      },
+      {
+        "name": "center_time",
+        "label": "中心区停留时间",
+        "unit": "s",
+        "type": "float",
+        "allowed_values": "",
+        "description": "开放场中心区域累计停留时长"
+      }
+    ],
+    "publications": [
+      {
+        "authors": "Zhang X., Li Y., et al.",
+        "year": 2023,
+        "title": "Automated quantification of locomotor activity in mice",
+        "venue": "Behavior Research Methods",
+        "doi": "10.1234/brm.2023.001",
+        "url": ""
+      }
+    ]
+  },
+  {
+    "slug": "metabolomics-2022",
+    "title": "代谢组学血清数据集（2022）",
+    "summary": "基于 LC-MS 的非靶向代谢组学数据，覆盖 300+ 特征峰，经 QC/批次效应校正。",
+    "methods_html": "<p>样本采集于空腹状态，离心分离血清。LC 条件：C18 柱，梯度洗脱 30 分钟；MS：正负离子切换，分辨率 60k。原始文件经 XCMS 特征提取、CAMERA 去同位素聚合，内标归一化。</p>",
+    "variables": [
+      {
+        "name": "sample_id",
+        "label": "样本编号",
+        "unit": "",
+        "type": "string",
+        "allowed_values": "",
+        "description": "对应原始采集编号"
+      },
+      {
+        "name": "feature_145.06_3.2",
+        "label": "特征峰 m/z145.06@RT3.2",
+        "unit": "intensity",
+        "type": "float",
+        "allowed_values": "",
+        "description": "峰面积（归一化后）"
+      }
+    ],
+    "publications": [
+      {
+        "authors": "Wang Q., Chen L., et al.",
+        "year": 2022,
+        "title": "Serum metabolomic signatures of ...",
+        "venue": "Metabolomics",
+        "doi": "",
+        "url": "https://example.org/paper.pdf"
+      }
+    ]
+  }
+]

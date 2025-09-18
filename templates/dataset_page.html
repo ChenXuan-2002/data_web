@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{DATASET_TITLE}} - {{SITE_TITLE}}</title>
+  <meta name="description" content="{{SUMMARY}}">
+  <link rel="stylesheet" href="../assets/main.css" />
+  <script type="application/ld+json">
+{{JSONLD}}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">{{SITE_TITLE}}</a>
+    <nav class="nav">
+      <a href="../index.html">首页</a>
+      <a href="../contact.html">联系方式/申请</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>{{DATASET_TITLE}}</h1>
+  <p class="lead">{{SUMMARY}}</p>
+
+  <section id="methods" class="card">
+    <h2>实验方法</h2>
+    <div class="content">
+      {{METHODS_HTML}}
+    </div>
+  </section>
+
+  <section id="variables" class="card">
+    <h2>变量说明</h2>
+    <div class="table-actions">
+      <input id="varSearch" type="search" placeholder="搜索变量名/中文名/说明…" aria-label="搜索变量">
+      <a class="btn" href="../assets/variables/{{SLUG}}.csv" download>下载变量字典（CSV）</a>
+    </div>
+    {{VARIABLES_TABLE}}
+  </section>
+
+  <section id="publications" class="card">
+    <h2>已发表论文</h2>
+    <ol class="pub-list">
+      {{PUBLICATIONS_LIST}}
+    </ol>
+  </section>
+
+  <aside class="cta">
+    <h3>申请数据访问</h3>
+    <p>请前往 <a href="../contact.html">联系方式/申请</a> 页面，或发送邮件至 <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>。</p>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>© {{YEAR}} {{OWNER}} · 许可协议：{{LICENSE}} · {{AFFILIATION}}</small>
+  </div>
+</footer>
+
+<script src="../assets/dataset.js" defer></script>
+</body>
+</html>
