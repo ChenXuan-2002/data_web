@@ -1,0 +1,3 @@
+name,label,unit,type,allowed_values,description
+sample_id,样本编号,,string,,对应原始采集编号
+feature_145.06_3.2,特征峰 m/z145.06@RT3.2,intensity,float,,峰面积（归一化后）

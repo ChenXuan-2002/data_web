@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>小鼠行为学数据集（V1） - XX实验室数据库</title>
+  <meta name="description" content="包含开放场、旷场、强迫游泳等经典范式的行为轨迹与评分结果。">
+  <link rel="stylesheet" href="../assets/main.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "小鼠行为学数据集（V1）",
+  "description": "包含开放场、旷场、强迫游泳等经典范式的行为轨迹与评分结果。",
+  "creator": {
+    "@type": "Organization",
+    "name": "李菁华教授课题组"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Faculty of Health Sciences (FHS), University of Macau"
+  },
+  "license": "CC BY-NC 4.0",
+  "url": "./mouse-behavior-v1.html",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "mouse_id",
+      "description": "个体编号",
+      "unitText": ""
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "total_distance",
+      "description": "总运动距离",
+      "unitText": "m"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "center_time",
+      "description": "中心区停留时间",
+      "unitText": "s"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../index.html">XX实验室数据库</a>
+    <nav class="nav">
+      <a href="../index.html">首页</a>
+      <a href="../contact.html">联系方式/申请</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>小鼠行为学数据集（V1）</h1>
+  <p class="lead">包含开放场、旷场、强迫游泳等经典范式的行为轨迹与评分结果。</p>
+
+  <section id="methods" class="card">
+    <h2>实验方法</h2>
+    <div class="content">
+      <p>采用标准 SPF 条件下 8–12 周龄 C57BL/6J 小鼠。开放场测试 10 分钟，追踪频率 30 Hz，使用 EthoVision XT 进行轨迹识别与分段...</p>
+    </div>
+  </section>
+
+  <section id="variables" class="card">
+    <h2>变量说明</h2>
+    <div class="table-actions">
+      <input id="varSearch" type="search" placeholder="搜索变量名/中文名/说明…" aria-label="搜索变量">
+      <a class="btn" href="../assets/variables/mouse-behavior-v1.csv" download>下载变量字典（CSV）</a>
+    </div>
+    <table data-kind="vars" aria-label="变量字典">
+<thead><tr>
+  <th class="sortable">变量名</th>
+  <th class="sortable">中文名</th>
+  <th>单位</th>
+  <th class="sortable">类型</th>
+  <th>取值范围</th>
+  <th>说明</th>
+</tr></thead><tbody><tr><td>mouse_id</td><td>个体编号</td><td></td><td>string</td><td></td><td>实验动物唯一标识</td></tr>
+<tr><td>total_distance</td><td>总运动距离</td><td>m</td><td>float</td><td></td><td>测试期内累计位移长度</td></tr>
+<tr><td>center_time</td><td>中心区停留时间</td><td>s</td><td>float</td><td></td><td>开放场中心区域累计停留时长</td></tr></tbody></table>
+  </section>
+
+  <section id="publications" class="card">
+    <h2>已发表论文</h2>
+    <ol class="pub-list">
+      <li>Zhang X., Li Y., et al. (2023). <em>Automated quantification of locomotor activity in mice</em>. Behavior Research Methods. <a href="https://doi.org/10.1234/brm.2023.001" target="_blank" rel="noopener">DOI:10.1234/brm.2023.001</a></li>
+    </ol>
+  </section>
+
+  <aside class="cta">
+    <h3>申请数据访问</h3>
+    <p>请前往 <a href="../contact.html">联系方式/申请</a> 页面，或发送邮件至 <a href="mailto:lijinghua@um.edu.mo">lijinghua@um.edu.mo</a>。</p>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>© 2025 李菁华教授课题组 · 许可协议：CC BY-NC 4.0 · Faculty of Health Sciences (FHS), University of Macau</small>
+  </div>
+</footer>
+
+<script src="../assets/dataset.js" defer></script>
+</body>
+</html>

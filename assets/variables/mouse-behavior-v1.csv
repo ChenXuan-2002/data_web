@@ -1,0 +1,4 @@
+name,label,unit,type,allowed_values,description
+mouse_id,个体编号,,string,,实验动物唯一标识
+total_distance,总运动距离,m,float,,测试期内累计位移长度
+center_time,中心区停留时间,s,float,,开放场中心区域累计停留时长
