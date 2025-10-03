@@ -1,5 +1,5 @@
 name,label,unit,type,allowed_values,description
-demographics,一般人口学特征,,,,年龄、民族、居住地、教育程度、婚姻状况、工作状态、收入、性取向
+demographics,一般人口学特征,,,,年龄、民族、居住地、受教育程度、婚姻状况、工作状态、收入、性取向
 sexual_behavior,性行为发生情况,,,,过去6个月性行为方式、固定/临时/商业性伴数、安全套使用、药物使用、性病史、群交
 hiv_testing_behavior,HIV检测行为相关,,,,6个月/终生检测史、检测方式（机构/自检）、次数、满意度
 hiv_information,HIV信息（知识）,,,,预防、识别与检测、治疗与预后、自检（18条）

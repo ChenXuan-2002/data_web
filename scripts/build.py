@@ -112,6 +112,7 @@ def main():
         html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html",""))
         html_out = html_out.replace("{{VARIABLES_TABLE}}", render_variables_table(ds.get("variables", [])))
         html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications(ds.get("publications", [])))
+        html_out = html_out.replace("{{EXTRA_HTML}}", ds.get("extra_html", ds.get("EXTRA_HTML", "")))
         html_out = html_out.replace("{{CONTACT_EMAIL}}", html.escape(site.get("contact_email","")))
         html_out = html_out.replace("{{LICENSE}}", html.escape(site.get("license","")))
         html_out = html_out.replace("{{OWNER}}", html.escape(site.get("owner","")))
