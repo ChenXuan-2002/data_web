@@ -119,6 +119,7 @@ def main():
         html_out = html_out.replace("{{YEAR}}", str(datetime.now().year))
         html_out = html_out.replace("{{SLUG}}", slug)
         html_out = html_out.replace("{{JSONLD}}", build_jsonld(site, ds))
+        html_out = html_out.replace("{{APPENDIX_HTML}}", ds.get("appendix_html", ""))
 
         # 写入文件
         (OUT_DIR / f"{slug}.html").write_text(html_out, encoding="utf-8")
