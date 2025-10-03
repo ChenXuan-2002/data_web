@@ -1,78 +1,91 @@
 [
   {
-    "slug": "mouse-behavior-v1",
-    "title": "小鼠行为学数据集（V1）",
-    "summary": "包含开放场、旷场、强迫游泳等经典范式的行为轨迹与评分结果。",
-    "methods_html": "<p>采用标准 SPF 条件下 8–12 周龄 C57BL/6J 小鼠。开放场测试 10 分钟，追踪频率 30 Hz，使用 EthoVision XT 进行轨迹识别与分段...</p>",
+    "slug": "hiv-selftesting-msm-chengdu-2022",
+    "title": "中国MSM人群HIV自检行为调查数据库（成都，2022）",
+    "summary": "横断面调查（2022年3–5月，成都），基于IMB模型；非随机抽样；有效样本499（响应率82%）。包含完整问卷（中英文）、纳入排除标准、论文与参考网站。",
+    "methods_html": "<p>本数据库旨在基于信息动机行为技能（IMB）模型，分析中国MSM人群HIV自检行为的影响因素。研究为横断面调查，于2022年3–5月在成都开展，非随机抽样；与成都市同乐健康咨询服务中心合作，通过（1）机构服务对象（2）外展（3）同伴网络线上三类渠道招募。共接触610人，有效样本499人，响应率82%。</p><p>The study aims to explore factors influencing HIV self-testing among MSM based on the IMB model. This is a cross-sectional survey conducted in Chengdu (Mar–May 2022) using non-random sampling, in collaboration with Chengdu Tongle Health Consultation Service Center. N approached: 610; valid: 499; response rate: 82%.</p>",
     "variables": [
       {
-        "name": "mouse_id",
-        "label": "个体编号",
-        "unit": "",
-        "type": "string",
-        "allowed_values": "",
-        "description": "实验动物唯一标识"
+        "name": "demographics",
+        "label": "一般人口学特征",
+        "description": "年龄、民族、居住地、教育程度、婚姻状况、工作状态、收入、性取向"
       },
       {
-        "name": "total_distance",
-        "label": "总运动距离",
-        "unit": "m",
-        "type": "float",
-        "allowed_values": "",
-        "description": "测试期内累计位移长度"
+        "name": "sexual_behavior",
+        "label": "性行为发生情况",
+        "description": "过去6个月性行为方式、固定/临时/商业性伴数、安全套使用、药物使用、性病史、群交"
       },
       {
-        "name": "center_time",
-        "label": "中心区停留时间",
-        "unit": "s",
-        "type": "float",
-        "allowed_values": "",
-        "description": "开放场中心区域累计停留时长"
+        "name": "hiv_testing_behavior",
+        "label": "HIV检测行为相关",
+        "description": "6个月/终生检测史、检测方式（机构/自检）、次数、满意度"
+      },
+      {
+        "name": "hiv_information",
+        "label": "HIV信息（知识）",
+        "description": "预防、识别与检测、治疗与预后、自检（18条）"
+      },
+      {
+        "name": "motivation",
+        "label": "HIV检测动机",
+        "description": "风险感知、检测意图、社会规范、检测态度"
+      },
+      {
+        "name": "skills",
+        "label": "HIV检测行为技能",
+        "description": "自我效能、感知困难度"
+      },
+      {
+        "name": "social_support",
+        "label": "社会支持",
+        "description": "情感、物质、信息、陪伴（0–10分）"
+      },
+      {
+        "name": "anticipated_stigma",
+        "label": "HIV预期污名",
+        "description": "1–5分，分数越高污名越高"
+      },
+      {
+        "name": "internalized_stigma",
+        "label": "MSM内化污名",
+        "description": "三个维度，1–5分"
+      },
+      {
+        "name": "negative_reaction",
+        "label": "HIV检测阴性反应量表",
+        "description": "维度：强化安全、运气、低风险感知（1–5分）"
       }
     ],
     "publications": [
       {
-        "authors": "Zhang X., Li Y., et al.",
+        "authors": "Zhu, Y., Li, Z., Chen, X., Yang, X., Shi, Y., Wang, X., Guo, Y., Gu, J., Hao, C., Hao, Y., Cao, W., & Li, J.",
+        "year": 2025,
+        "title": "Application of the Information-Motivation-Behavioral Skills Theory to Explore HIV Self-Testing Behavior Among Men Who Have Sex with Men in Southwest China",
+        "venue": "Archives of Sexual Behavior",
+        "doi": "10.1007/s10508-025-03212-4",
+        "url": "https://doi.org/10.1007/s10508-025-03212-4",
+        "abstract": "Anonymous cross-sectional survey among 499 MSM in Chengdu validated IMB components and examined their effects on HIV self-testing. Information, motivation, and behavioral skills had direct positive effects; skills partially mediated other components."
+      },
+      {
+        "authors": "Shi, Z., Li, J., Lin, H., Wang, X., Cao, W., & Shi, Y.",
+        "year": 2024,
+        "title": "Low Level of Accurate Knowledge of U=U Among MSM Challenges U=U Achievement in Chengdu, Southwestern China",
+        "venue": "AIDS and Behavior, 28(12), 4146–4157",
+        "doi": "10.1007/s10461-024-04502-z",
+        "url": "https://doi.org/10.1007/s10461-024-04502-z",
+        "abstract": "Cross-sectional survey in Chengdu: 23.4% accurate knowledge of U=U among MSM; associated with substance use during sex, recent HIV testing, HIV literacy, and perceived risk."
+      },
+      {
+        "authors": "朱洋, 侯丰苏, 陈晓婷, 杨潇, 曹望楠, 郝元涛, 李菁华",
         "year": 2023,
-        "title": "Automated quantification of locomotor activity in mice",
-        "venue": "Behavior Research Methods",
-        "doi": "10.1234/brm.2023.001",
-        "url": ""
-      }
-    ]
-  },
-  {
-    "slug": "metabolomics-2022",
-    "title": "代谢组学血清数据集（2022）",
-    "summary": "基于 LC-MS 的非靶向代谢组学数据，覆盖 300+ 特征峰，经 QC/批次效应校正。",
-    "methods_html": "<p>样本采集于空腹状态，离心分离血清。LC 条件：C18 柱，梯度洗脱 30 分钟；MS：正负离子切换，分辨率 60k。原始文件经 XCMS 特征提取、CAMERA 去同位素聚合，内标归一化。</p>",
-    "variables": [
-      {
-        "name": "sample_id",
-        "label": "样本编号",
-        "unit": "",
-        "type": "string",
-        "allowed_values": "",
-        "description": "对应原始采集编号"
-      },
-      {
-        "name": "feature_145.06_3.2",
-        "label": "特征峰 m/z145.06@RT3.2",
-        "unit": "intensity",
-        "type": "float",
-        "allowed_values": "",
-        "description": "峰面积（归一化后）"
+        "title": "成都市男男性行为人群对重复HIV检测阴性的反应与危险性行为的关联研究",
+        "venue": "中华流行病学杂志, 44(3):452-456",
+        "doi": "10.3760/cma.j.cn112338-20220705-00601",
+        "url": "https://doi.org/10.3760/cma.j.cn112338-20220705-00601",
+        "abstract": "在成都市MSM人群中，重复阴性反应中的“强化安全”与群交负相关；“运气”与临时性行为、不坚持安全套、群交、多性伴正相关；“低风险感知”与多性伴正相关。"
       }
     ],
-    "publications": [
-      {
-        "authors": "Wang Q., Chen L., et al.",
-        "year": 2022,
-        "title": "Serum metabolomic signatures of ...",
-        "venue": "Metabolomics",
-        "doi": "",
-        "url": "https://example.org/paper.pdf"
-      }
-    ]
+    "contact": "邮箱/在线提交：xxxxxxxx；申请需提交研究目的、数据分析计划和所需变量；请注意版权与作者署名/引用要求。",
+    "appendix_html": "<details><summary>📑 点击展开完整问卷（中英文，不省略）</summary><iframe src='./hiv-selftesting-msm-chengdu-2022-full.html' style='width:100%;height:900px;border:1px solid #ccc;'></iframe></details>"
   }
 ]
