@@ -25,6 +25,7 @@
   <h1>{{DATASET_TITLE}}</h1>
   <p class="lead">{{SUMMARY}}</p>
 
+  <!-- 实验方法 -->
   <section id="methods" class="card">
     <h2>实验方法</h2>
     <div class="content">
@@ -32,15 +33,7 @@
     </div>
   </section>
 
-  <section id="variables" class="card">
-    <h2>变量说明</h2>
-    <div class="table-actions">
-      <input id="varSearch" type="search" placeholder="搜索变量名/中文名/说明…" aria-label="搜索变量">
-      <a class="btn" href="../assets/variables/{{SLUG}}.csv" download>下载变量字典（CSV）</a>
-    </div>
-    {{VARIABLES_TABLE}}
-  </section>
-
+  <!-- 已发表论文 -->
   <section id="publications" class="card">
     <h2>已发表论文</h2>
     <ol class="pub-list">
@@ -48,17 +41,15 @@
     </ol>
   </section>
 
-  <section id="extra" class="card">
-    <h2>参考与资源</h2>
-    {{EXTRA_HTML}}
-  </section>
-
+  <!-- 联系方式 -->
   <aside class="cta">
     <h3>申请数据访问</h3>
-    <p>请前往 <a href="../contact.html">联系方式/申请</a> 页面，或发送邮件至 <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>。</p>
+    <p>请前往 <a href="../contact.html">联系方式/申请</a> 页面，或发送邮件至 
+      <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>。
+    </p>
   </aside>
 
-  <!-- 新增附录块 -->
+  <!-- 附录（中英文问卷） -->
   <section id="appendix" class="card">
     <h2>附录</h2>
     {{APPENDIX_HTML}}
