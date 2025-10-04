@@ -1,53 +1,72 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Contact - XX Laboratory</title>
-  <link rel="stylesheet" href="assets/main.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact / Data Access Request</title>
+  <link rel="stylesheet" href="assets/main.css" />
 </head>
 <body>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="index-en.html">XX Laboratory Databases</a>
+    <a class="brand" href="index-en.html" id="brand">XX Laboratory Databases</a>
     <nav class="nav">
       <a href="index-en.html">Home</a>
+      <a href="contact-en.html">Contact / Apply</a>
       <a href="contact.html">中文</a>
     </nav>
   </div>
 </header>
 
 <main class="container">
-  <h1>Contact and Data Access</h1>
-  <p class="lead">Please use the following information to request data access or contact the research team.</p>
+  <h1>Contact / Data Access Request</h1>
 
   <section class="card">
-    <h2>Data Request</h2>
-    <p>
-      To apply for dataset access, please provide:<br>
-      • Research purpose and project summary<br>
-      • Data analysis plan<br>
-      • Required dataset variables or fields<br>
-      • Author credit and citation policy acknowledgment
-    </p>
-    <p>Email submission: <a href="mailto:xxxxxxxx">xxxxxxxx</a></p>
+    <h2>Contact</h2>
+    <p>Dataset administrator email: <a id="contactEmail" href="#">loading...</a></p>
+    <p>If you wish to request access, please complete the form below (an email draft will be prepared automatically).</p>
   </section>
 
   <section class="card">
-    <h2>Laboratory Contact</h2>
-    <p>
-      XX Laboratory, School of Public Health<br>
-      University of XXX, China<br>
-      Email: <a href="mailto:xxxxxxxx">xxxxxxxx</a>
-    </p>
-  </section>
+    <h2>Application Form (offline email draft)</h2>
+    <form id="applyForm">
+      <div class="grid">
+        <label>Name
+          <input name="name" required />
+        </label>
+        <label>Affiliation / Department
+          <input name="org" required />
+        </label>
+        <label>Email
+          <input name="email" type="email" required />
+        </label>
+      </div>
+      <label>Requested datasets (select one or more)</label>
+      <div id="datasetChecks" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px;"></div>
 
+      <label>Purpose of use
+        <textarea name="purpose" rows="5" placeholder="Briefly describe your research objectives, planned use period, expected outputs, and acknowledgement plan." required></textarea>
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" name="agree" value="1" required />
+        I agree to use the data solely for research purposes, will not redistribute it, and will acknowledge the source in all outputs.
+      </label>
+
+      <div style="margin-top:12px;">
+        <button class="btn" type="submit">Generate Email Draft</button>
+      </div>
+    </form>
+    <p style="color:#666;margin-top:8px;">Note: this page generates a local <code>mailto:</code> draft that opens your default email client. If the draft is too long or your environment blocks <code>mailto:</code>, copy the generated text and send it manually.</p>
+  </section>
 </main>
 
 <footer class="site-footer">
   <div class="container">
-    <small>© 2025 XX Laboratory · All Rights Reserved</small>
+    <small id="footerMeta">© XX Laboratory · All Rights Reserved</small>
   </div>
 </footer>
+
+<script src="assets/contact-en.js" defer></script>
 </body>
 </html>
