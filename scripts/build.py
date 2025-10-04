@@ -1,131 +1,189 @@
 # -*- coding: utf-8 -*-
-import json, csv, re, html
+import json, html
 from pathlib import Path
 from datetime import datetime
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-TEMPLATES = ROOT / "templates"
-OUT_DIR = ROOT / "datasets"
-CSV_DIR = ROOT / "assets" / "variables"
+DATA_DIR = ROOT / "data"
+TPL_DIR = ROOT / "templates"
+OUT_DATASETS = ROOT / "datasets"
 
-def slugify(s, fallback):
-    if not s: return fallback
-    s = s.strip().lower()
-    s = re.sub(r'\s+', '-', s)
-    s = re.sub(r'[^a-z0-9\-]+', '', s)  # 仅保留 a-z0-9-，中文需手动提供 slug
-    return s or fallback
+# 模板
+TPL_DETAIL = (TPL_DIR / "dataset_page.html").read_text(encoding="utf-8")
+TPL_INDEX  = (TPL_DIR / "index_page.html").read_text(encoding="utf-8")
 
-def render_variables_table(vars_list):
-    # 转 HTML 表格
-    head = """<table data-kind="vars" aria-label="变量字典">
-<thead><tr>
-  <th class="sortable">变量名</th>
-  <th class="sortable">中文名</th>
-  <th>单位</th>
-  <th class="sortable">类型</th>
-  <th>取值范围</th>
-  <th>说明</th>
-</tr></thead><tbody>"""
-    rows = []
-    for v in vars_list:
-        rows.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(
-            html.escape(v.get("name","")),
-            html.escape(v.get("label","")),
-            html.escape(v.get("unit","")),
-            html.escape(v.get("type","")),
-            html.escape(v.get("allowed_values","")),
-            html.escape(v.get("description",""))
-        ))
-    return head + "\n".join(rows) + "</tbody></table>"
+def esc(x): return html.escape(x or "")
 
-def render_publications(pubs):
+def render_publications_with_abstracts(pubs):
+    """保留作者、年份、标题、期刊、DOI/URL，并附完整摘要（不省略）。"""
     items = []
-    for p in pubs:
-        authors = html.escape(p.get("authors",""))
-        year = str(p.get("year","")).strip()
-        title = html.escape(p.get("title",""))
-        venue = html.escape(p.get("venue",""))
-        doi = (p.get("doi") or "").strip()
-        url = (p.get("url") or "").strip()
+    for p in pubs or []:
+        authors = esc(p.get("authors",""))
+        year    = esc(str(p.get("year","")).strip())
+        title   = esc(p.get("title",""))
+        venue   = esc(p.get("venue",""))
+        doi     = (p.get("doi") or "").strip()
+        url     = (p.get("url") or "").strip()
         link = ""
         if doi:
-            link = f'<a href="https://doi.org/{html.escape(doi)}" target="_blank" rel="noopener">DOI:{html.escape(doi)}</a>'
+            link = f'<a href="https://doi.org/{esc(doi)}" target="_blank" rel="noopener">DOI:{esc(doi)}</a>'
         elif url:
-            link = f'<a href="{html.escape(url)}" target="_blank" rel="noopener">链接</a>'
-        item = f"<li>{authors} ({year}). <em>{title}</em>. {venue}. {link}</li>"
-        items.append(item)
-    return "\n".join(items) if items else "<li>暂无公开论文。</li>"
+            link = f'<a href="{esc(url)}" target="_blank" rel="noopener">Link</a>'
+        abstract = p.get("abstract","")
+        # 摘要原文不做转义（允许保留引号、破折号等），仅做基础安全处理
+        abstract_html = f"<p><strong>Abstract:</strong> {abstract}</p>" if abstract else ""
+        li = f"<li><p><strong>{authors}</strong> ({year}). <em>{title}</em>. {venue}. {link}</p>{abstract_html}</li>"
+        items.append(li)
+    return "\n".join(items) if items else "<li>—</li>"
 
-def build_jsonld(site, ds):
-    # schema.org/Dataset
+def build_jsonld(site, ds, lang):
+    """生成 schema.org/Dataset 结构化数据"""
+    url = f"./{ds['slug']}-{lang}.html"
     props = {
         "@context": "https://schema.org",
         "@type": "Dataset",
-        "name": ds["title"],
+        "name": ds.get("title",""),
         "description": (ds.get("summary") or "")[:300],
         "creator": {"@type": "Organization", "name": site.get("owner","")},
         "publisher": {"@type": "Organization", "name": site.get("affiliation","")},
         "license": site.get("license",""),
-        "url": f"./{ds['slug']}.html",
-        "variableMeasured": [
-            {
-                "@type": "PropertyValue",
-                "name": v.get("name",""),
-                "description": v.get("label",""),
-                "unitText": v.get("unit","")
-            } for v in ds.get("variables", [])
-        ]
+        "url": url,
+        "variableMeasured": []  # 当前无变量字典
     }
     return json.dumps(props, ensure_ascii=False, indent=2)
 
-def write_csv(path, vars_list):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline='', encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["name","label","unit","type","allowed_values","description"])
-        for v in vars_list:
-            w.writerow([
-                v.get("name",""), v.get("label",""), v.get("unit",""),
-                v.get("type",""), v.get("allowed_values",""), v.get("description","")
-            ])
+def i18n_labels(lang):
+    if lang == "zh":
+        return {
+            "LANG_ATTR": "zh-CN",
+            "NAV_HOME": "首页",
+            "NAV_CONTACT": "联系方式/申请",
+            "NAV_SWITCH": "English",
+            "I18N_METHODS": "实验方法",
+            "I18N_PUBLICATIONS": "已发表论文",
+            "I18N_CONTACT": "联系方式",
+            "I18N_OR": "或直接邮件联系",
+            "I18N_APPENDIX": "附录（问卷 PDF）",
+            "LEAD_HOME": "以下为 XX 实验室公开的数据库",
+            "SECTION_TITLE": "数据库列表",
+            "BTN_OPEN": "打开详情页",
+            "LANG_SUFFIX": "zh",
+            "ALT_LANG_SUFFIX": "en"
+        }
+    else:
+        return {
+            "LANG_ATTR": "en",
+            "NAV_HOME": "Home",
+            "NAV_CONTACT": "Contact",
+            "NAV_SWITCH": "中文",
+            "I18N_METHODS": "Methods",
+            "I18N_PUBLICATIONS": "Publications",
+            "I18N_CONTACT": "Contact",
+            "I18N_OR": "or contact via email",
+            "I18N_APPENDIX": "Appendix (Questionnaire PDF)",
+            "LEAD_HOME": "List of databases released by XX Laboratory",
+            "SECTION_TITLE": "Databases",
+            "BTN_OPEN": "Open Details Page",
+            "LANG_SUFFIX": "en",
+            "ALT_LANG_SUFFIX": "zh"
+        }
+
+def build_dataset_page(site, ds, lang):
+    L = i18n_labels(lang)
+    html_out = TPL_DETAIL
+
+    # 头部与导航
+    html_out = html_out.replace("{{LANG_ATTR}}", L["LANG_ATTR"])
+    html_out = html_out.replace("{{SITE_TITLE}}", esc(site.get("site_title","XX实验室数据库")))
+    html_out = html_out.replace("{{NAV_HOME}}", L["NAV_HOME"])
+    html_out = html_out.replace("{{NAV_CONTACT}}", L["NAV_CONTACT"])
+    html_out = html_out.replace("{{NAV_SWITCH}}", L["NAV_SWITCH"])
+    html_out = html_out.replace("{{LANG_SUFFIX}}", L["LANG_SUFFIX"])
+    html_out = html_out.replace("{{ALT_LANG_SUFFIX}}", L["ALT_LANG_SUFFIX"])
+
+    # 数据集基本信息
+    html_out = html_out.replace("{{DATASET_TITLE}}", esc(ds.get("title","")))
+    html_out = html_out.replace("{{SUMMARY}}", esc(ds.get("summary","")))
+    html_out = html_out.replace("{{I18N_METHODS}}", L["I18N_METHODS"])
+    html_out = html_out.replace("{{I18N_PUBLICATIONS}}", L["I18N_PUBLICATIONS"])
+    html_out = html_out.replace("{{I18N_CONTACT}}", L["I18N_CONTACT"])
+    html_out = html_out.replace("{{I18N_OR}}", L["I18N_OR"])
+    html_out = html_out.replace("{{I18N_APPENDIX}}", L["I18N_APPENDIX"])
+
+    # 可变内容（HTML 片段直接嵌入）
+    html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html",""))
+    html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications_with_abstracts(ds.get("publications",[])))
+    html_out = html_out.replace("{{CONTACT_TEXT}}", f"<p>{esc(ds.get('contact',''))}</p>")
+    html_out = html_out.replace("{{APPENDIX_HTML}}", ds.get("appendix_html",""))
+
+    # 全站属性
+    html_out = html_out.replace("{{CONTACT_EMAIL}}", esc(site.get("contact_email","")))
+    html_out = html_out.replace("{{LICENSE}}", esc(site.get("license","")))
+    html_out = html_out.replace("{{OWNER}}", esc(site.get("owner","")))
+    html_out = html_out.replace("{{AFFILIATION}}", esc(site.get("affiliation","")))
+    html_out = html_out.replace("{{YEAR}}", str(datetime.now().year))
+
+    # JSON-LD
+    jsonld = build_jsonld(site, ds, lang)
+    html_out = html_out.replace("{{JSONLD}}", jsonld)
+
+    # 输出
+    OUT_DATASETS.mkdir(parents=True, exist_ok=True)
+    out_file = OUT_DATASETS / f"{ds['slug']}-{lang}.html"
+    out_file.write_text(html_out, encoding="utf-8")
+    print(f"[OK] {out_file.relative_to(ROOT)}")
+
+def build_index(site, datasets, lang):
+    L = i18n_labels(lang)
+    html_out = TPL_INDEX
+    html_out = html_out.replace("{{LANG_ATTR}}", L["LANG_ATTR"])
+    html_out = html_out.replace("{{SITE_TITLE}}", esc(site.get("site_title","XX实验室数据库")))
+    html_out = html_out.replace("{{NAV_HOME}}", L["NAV_HOME"])
+    html_out = html_out.replace("{{NAV_CONTACT}}", L["NAV_CONTACT"])
+    html_out = html_out.replace("{{NAV_SWITCH}}", L["NAV_SWITCH"])
+    html_out = html_out.replace("{{LANG_SUFFIX}}", L["LANG_SUFFIX"])
+    html_out = html_out.replace("{{ALT_LANG_SUFFIX}}", L["ALT_LANG_SUFFIX"])
+
+    html_out = html_out.replace("{{PAGE_TITLE}}",
+                                "XX实验室数据库（中文）" if lang=="zh" else "XX Laboratory Databases (English)")
+    html_out = html_out.replace("{{LEAD}}", L["LEAD_HOME"])
+    html_out = html_out.replace("{{SECTION_TITLE}}", L["SECTION_TITLE"])
+
+    # 数据集卡片
+    cards = []
+    for d in datasets:
+        card = (
+            "<div class='dataset-card'>"
+            f"<h3>{esc(d.get('title',''))}</h3>"
+            f"<p>{esc(d.get('summary',''))}</p>"
+            f"<a class='btn' href='datasets/{d['slug']}-{lang}.html'>{L['BTN_OPEN']}</a>"
+            "</div>"
+        )
+        cards.append(card)
+    html_out = html_out.replace("{{DATASET_LIST}}", "\n".join(cards))
+
+    out_file = ROOT / f"index-{lang}.html"
+    out_file.write_text(html_out, encoding="utf-8")
+    print(f"[OK] {out_file.relative_to(ROOT)}")
 
 def main():
-    site = json.loads((DATA / "site.json").read_text(encoding="utf-8"))
-    datasets = json.loads((DATA / "datasets.json").read_text(encoding="utf-8"))
-    tpl = (TEMPLATES / "dataset_page.html").read_text(encoding="utf-8")
+    site = json.loads((DATA_DIR / "site.json").read_text(encoding="utf-8"))
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    # 依次构建中文、英文
+    for lang in ["zh","en"]:
+        data_file = DATA_DIR / f"datasets-{lang}.json"
+        if not data_file.exists():
+            print(f"[WARN] Missing {data_file}")
+            continue
+        datasets = json.loads(data_file.read_text(encoding="utf-8"))
+        for ds in datasets:
+            # 基本字段校验
+            if "slug" not in ds or not ds["slug"]:
+                raise RuntimeError(f"dataset missing slug: {ds}")
+            build_dataset_page(site, ds, lang)
+        build_index(site, datasets, lang)
 
-    for i, ds in enumerate(datasets, start=1):
-        slug = ds.get("slug") or slugify(ds.get("title",""), f"dataset-{i}")
-        ds["slug"] = slug
-
-        # 导出变量 CSV
-        write_csv(CSV_DIR / f"{slug}.csv", ds.get("variables", []))
-
-        # 组装 HTML
-        html_out = tpl
-        html_out = html_out.replace("{{DATASET_TITLE}}", html.escape(ds.get("title","")))
-        html_out = html_out.replace("{{SITE_TITLE}}", html.escape(site.get("site_title","")))
-        html_out = html_out.replace("{{SUMMARY}}", html.escape(ds.get("summary","")))
-        html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html",""))
-        html_out = html_out.replace("{{VARIABLES_TABLE}}", render_variables_table(ds.get("variables", [])))
-        html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications(ds.get("publications", [])))
-        html_out = html_out.replace("{{EXTRA_HTML}}", ds.get("extra_html", ds.get("EXTRA_HTML", "")))
-        html_out = html_out.replace("{{CONTACT_EMAIL}}", html.escape(site.get("contact_email","")))
-        html_out = html_out.replace("{{LICENSE}}", html.escape(site.get("license","")))
-        html_out = html_out.replace("{{OWNER}}", html.escape(site.get("owner","")))
-        html_out = html_out.replace("{{AFFILIATION}}", html.escape(site.get("affiliation","")))
-        html_out = html_out.replace("{{YEAR}}", str(datetime.now().year))
-        html_out = html_out.replace("{{SLUG}}", slug)
-        html_out = html_out.replace("{{JSONLD}}", build_jsonld(site, ds))
-        html_out = html_out.replace("{{APPENDIX_HTML}}", ds.get("appendix_html", ""))
-
-        # 写入文件
-        (OUT_DIR / f"{slug}.html").write_text(html_out, encoding="utf-8")
-
-    print(f"生成完成：{len(datasets)} 个页面，CSV 输出目录：{CSV_DIR}")
+    print("✅ All pages built successfully.")
 
 if __name__ == "__main__":
     main()

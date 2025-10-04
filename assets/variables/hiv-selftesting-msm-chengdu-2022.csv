@@ -1,11 +1,1 @@
 name,label,unit,type,allowed_values,description
-demographics,一般人口学特征,,,,年龄、民族、居住地、受教育程度、婚姻状况、工作状态、收入、性取向
-sexual_behavior,性行为发生情况,,,,过去6个月性行为方式、固定/临时/商业性伴数、安全套使用、药物使用、性病史、群交
-hiv_testing_behavior,HIV检测行为相关,,,,6个月/终生检测史、检测方式（机构/自检）、次数、满意度
-hiv_information,HIV信息（知识）,,,,预防、识别与检测、治疗与预后、自检（18条）
-motivation,HIV检测动机,,,,风险感知、检测意图、社会规范、检测态度
-skills,HIV检测行为技能,,,,自我效能、感知困难度
-social_support,社会支持,,,,情感、物质、信息、陪伴（0–10分）
-anticipated_stigma,HIV预期污名,,,,1–5分，分数越高污名越高
-internalized_stigma,MSM内化污名,,,,三个维度，1–5分
-negative_reaction,HIV检测阴性反应量表,,,,维度：强化安全、运气、低风险感知（1–5分）

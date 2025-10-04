@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="{{LANG_ATTR}}">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -13,10 +13,11 @@
 <body>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="../index.html">{{SITE_TITLE}}</a>
+    <a class="brand" href="../index-{{LANG_SUFFIX}}.html">{{SITE_TITLE}}</a>
     <nav class="nav">
-      <a href="../index.html">首页</a>
-      <a href="../contact.html">联系方式/申请</a>
+      <a href="../index-{{LANG_SUFFIX}}.html">{{NAV_HOME}}</a>
+      <a href="../contact.html">{{NAV_CONTACT}}</a>
+      <a href="../index-{{ALT_LANG_SUFFIX}}.html">{{NAV_SWITCH}}</a>
     </nav>
   </div>
 </header>
@@ -25,33 +26,34 @@
   <h1>{{DATASET_TITLE}}</h1>
   <p class="lead">{{SUMMARY}}</p>
 
-  <!-- 实验方法 -->
+  <!-- 实验方法 / Methods -->
   <section id="methods" class="card">
-    <h2>实验方法</h2>
+    <h2>{{I18N_METHODS}}</h2>
     <div class="content">
       {{METHODS_HTML}}
     </div>
   </section>
 
-  <!-- 已发表论文 -->
+  <!-- 已发表论文 / Publications -->
   <section id="publications" class="card">
-    <h2>已发表论文</h2>
+    <h2>{{I18N_PUBLICATIONS}}</h2>
     <ol class="pub-list">
       {{PUBLICATIONS_LIST}}
     </ol>
   </section>
 
-  <!-- 联系方式 -->
-  <aside class="cta">
-    <h3>申请数据访问</h3>
-    <p>请前往 <a href="../contact.html">联系方式/申请</a> 页面，或发送邮件至 
-      <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>。
-    </p>
-  </aside>
+  <!-- 联系方式 / Contact -->
+  <section id="contact" class="card">
+    <h2>{{I18N_CONTACT}}</h2>
+    <div class="content">
+      {{CONTACT_TEXT}}
+      <p>{{I18N_OR}}：<a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></p>
+    </div>
+  </section>
 
-  <!-- 附录（中英文问卷） -->
+  <!-- 附录（问卷 PDF） / Appendix -->
   <section id="appendix" class="card">
-    <h2>附录</h2>
+    <h2>{{I18N_APPENDIX}}</h2>
     {{APPENDIX_HTML}}
   </section>
 </main>
