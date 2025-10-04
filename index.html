@@ -1,39 +1,33 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>数据库概览</title>
-  <link rel="stylesheet" href="assets/main.css" />
+  <meta charset="utf-8">
+  <title>Redirecting…</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; padding: 2rem; line-height: 1.6;}
+    code {background: #f6f8fa; padding: 0 .3rem; border-radius: 3px;}
+    a {color: #185adb; text-decoration: none;}
+  </style>
+  <script>
+    (function () {
+      try {
+        var lang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+        var toZh = lang.startsWith("zh");
+        var target = toZh ? "index-zh.html" : "index-en.html";
+        window.location.replace(target);
+      } catch (e) {
+        // 如果脚本出错，保持页面上的手动链接
+      }
+    })();
+  </script>
 </head>
 <body>
-<header class="site-header">
-  <div class="container">
-    <a class="brand" href="index.html" id="brand">数据库</a>
-    <nav class="nav">
-      <a href="index.html">首页</a>
-      <a href="contact.html">联系方式/申请</a>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-  <h1 id="siteTitle">XX实验室数据库</h1>
-  <p class="lead" id="siteLead">集中展示 11 个数据集的实验方法、变量字典与论文。</p>
-
-  <div class="card">
-    <input id="dsSearch" type="search" placeholder="搜索数据集标题/摘要…" aria-label="搜索数据集">
-  </div>
-
-  <div id="dsList" class="grid"></div>
-</main>
-
-<footer class="site-footer">
-  <div class="container">
-    <small id="footerMeta">© 实验室</small>
-  </div>
-</footer>
-
-<script src="assets/home.js" defer></script>
+  <p>Redirecting based on your browser language…</p>
+  <p>
+    If not redirected automatically, choose manually:
+    <a href="index-zh.html">中文主页</a> |
+    <a href="index-en.html">English Home</a>
+  </p>
 </body>
 </html>
