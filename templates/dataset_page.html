@@ -16,7 +16,7 @@
     <a class="brand" href="../index-{{LANG_SUFFIX}}.html">{{SITE_TITLE}}</a>
     <nav class="nav">
       <a href="../index-{{LANG_SUFFIX}}.html">{{NAV_HOME}}</a>
-      <a href="../contact{{'-en' if LANG_SUFFIX=='en' else ''}}.html">{{NAV_CONTACT}}</a>
+      <a href="{{CONTACT_HREF}}">{{NAV_CONTACT}}</a>
       <a href="../index-{{ALT_LANG_SUFFIX}}.html">{{NAV_SWITCH}}</a>
     </nav>
   </div>
@@ -47,7 +47,7 @@
     <h2>{{I18N_CONTACT}}</h2>
     <div class="content">
       {{CONTACT_TEXT}}
-      <p>{{I18N_OR}}：<a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></p>
+      <p>{{I18N_OR}} <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></p>
     </div>
   </section>
 
@@ -67,3 +67,4 @@
 <script src="../assets/dataset.js" defer></script>
 </body>
 </html>
+

@@ -8,14 +8,14 @@ DATA_DIR = ROOT / "data"
 TPL_DIR = ROOT / "templates"
 OUT_DATASETS = ROOT / "datasets"
 
-# 模板
+# Templates
 TPL_DETAIL = (TPL_DIR / "dataset_page.html").read_text(encoding="utf-8")
 TPL_INDEX  = (TPL_DIR / "index_page.html").read_text(encoding="utf-8")
 
 def esc(x): return html.escape(x or "")
 
 def render_publications_with_abstracts(pubs):
-    """保留作者、年份、标题、期刊、DOI/URL，并附完整摘要（不省略）。"""
+    """Render publication list with full abstracts."""
     items = []
     for p in pubs or []:
         authors = esc(p.get("authors",""))
@@ -30,14 +30,14 @@ def render_publications_with_abstracts(pubs):
         elif url:
             link = f'<a href="{esc(url)}" target="_blank" rel="noopener">Link</a>'
         abstract = p.get("abstract","")
-        # 摘要原文不做转义（允许保留引号、破折号等），仅做基础安全处理
+        # Keep raw abstract text; preserve punctuation; minimal sanitisation
         abstract_html = f"<p><strong>Abstract:</strong> {abstract}</p>" if abstract else ""
         li = f"<li><p><strong>{authors}</strong> ({year}). <em>{title}</em>. {venue}. {link}</p>{abstract_html}</li>"
         items.append(li)
-    return "\n".join(items) if items else "<li>—</li>"
+    return "\n".join(items) if items else "<li>-</li>"
 
 def build_jsonld(site, ds, lang):
-    """生成 schema.org/Dataset 结构化数据"""
+    """Build schema.org Dataset JSON-LD block."""
     url = f"./{ds['slug']}-{lang}.html"
     props = {
         "@context": "https://schema.org",
@@ -48,7 +48,7 @@ def build_jsonld(site, ds, lang):
         "publisher": {"@type": "Organization", "name": site.get("affiliation","")},
         "license": site.get("license",""),
         "url": url,
-        "variableMeasured": []  # 当前无变量字典
+        "variableMeasured": []  # TODO: populate variables list when available
     }
     return json.dumps(props, ensure_ascii=False, indent=2)
 
@@ -92,7 +92,7 @@ def build_dataset_page(site, ds, lang):
     L = i18n_labels(lang)
     html_out = TPL_DETAIL
 
-    # 头部与导航
+    # Header and navigation slot replacements
     html_out = html_out.replace("{{LANG_ATTR}}", L["LANG_ATTR"])
     html_out = html_out.replace("{{SITE_TITLE}}", esc(site.get("site_title","XX实验室数据库")))
     html_out = html_out.replace("{{NAV_HOME}}", L["NAV_HOME"])
@@ -100,8 +100,10 @@ def build_dataset_page(site, ds, lang):
     html_out = html_out.replace("{{NAV_SWITCH}}", L["NAV_SWITCH"])
     html_out = html_out.replace("{{LANG_SUFFIX}}", L["LANG_SUFFIX"])
     html_out = html_out.replace("{{ALT_LANG_SUFFIX}}", L["ALT_LANG_SUFFIX"])
+    contact_href = "../contact-en.html" if lang == "en" else "../contact.html"
+    html_out = html_out.replace("{{CONTACT_HREF}}", contact_href)
 
-    # 数据集基本信息
+    # Dataset metadata strings
     html_out = html_out.replace("{{DATASET_TITLE}}", esc(ds.get("title","")))
     html_out = html_out.replace("{{SUMMARY}}", esc(ds.get("summary","")))
     html_out = html_out.replace("{{I18N_METHODS}}", L["I18N_METHODS"])
@@ -110,13 +112,13 @@ def build_dataset_page(site, ds, lang):
     html_out = html_out.replace("{{I18N_OR}}", L["I18N_OR"])
     html_out = html_out.replace("{{I18N_APPENDIX}}", L["I18N_APPENDIX"])
 
-    # 可变内容（HTML 片段直接嵌入）
+    # Inline HTML fragments from dataset json
     html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html",""))
     html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications_with_abstracts(ds.get("publications",[])))
     html_out = html_out.replace("{{CONTACT_TEXT}}", f"<p>{esc(ds.get('contact',''))}</p>")
     html_out = html_out.replace("{{APPENDIX_HTML}}", ds.get("appendix_html",""))
 
-    # 全站属性
+    # Site-wide attributes
     html_out = html_out.replace("{{CONTACT_EMAIL}}", esc(site.get("contact_email","")))
     html_out = html_out.replace("{{LICENSE}}", esc(site.get("license","")))
     html_out = html_out.replace("{{OWNER}}", esc(site.get("owner","")))
@@ -127,7 +129,7 @@ def build_dataset_page(site, ds, lang):
     jsonld = build_jsonld(site, ds, lang)
     html_out = html_out.replace("{{JSONLD}}", jsonld)
 
-    # 输出
+    # Write dataset page to disk
     OUT_DATASETS.mkdir(parents=True, exist_ok=True)
     out_file = OUT_DATASETS / f"{ds['slug']}-{lang}.html"
     out_file.write_text(html_out, encoding="utf-8")
@@ -143,13 +145,15 @@ def build_index(site, datasets, lang):
     html_out = html_out.replace("{{NAV_SWITCH}}", L["NAV_SWITCH"])
     html_out = html_out.replace("{{LANG_SUFFIX}}", L["LANG_SUFFIX"])
     html_out = html_out.replace("{{ALT_LANG_SUFFIX}}", L["ALT_LANG_SUFFIX"])
+    contact_href = "contact-en.html" if lang == "en" else "contact.html"
+    html_out = html_out.replace("{{CONTACT_HREF}}", contact_href)
 
-    html_out = html_out.replace("{{PAGE_TITLE}}",
-                                "XX实验室数据库（中文）" if lang=="zh" else "XX Laboratory Databases (English)")
+    page_title = "XX实验室数据库（中文）" if lang == "zh" else "XX Laboratory Databases (English)"
+    html_out = html_out.replace("{{PAGE_TITLE}}", page_title)
     html_out = html_out.replace("{{LEAD}}", L["LEAD_HOME"])
     html_out = html_out.replace("{{SECTION_TITLE}}", L["SECTION_TITLE"])
 
-    # 数据集卡片
+    # Render dataset cards for index page
     cards = []
     for d in datasets:
         card = (
@@ -169,7 +173,7 @@ def build_index(site, datasets, lang):
 def main():
     site = json.loads((DATA_DIR / "site.json").read_text(encoding="utf-8"))
 
-    # 依次构建中文、英文
+    # Build Chinese then English pages
     for lang in ["zh","en"]:
         data_file = DATA_DIR / f"datasets-{lang}.json"
         if not data_file.exists():
@@ -177,13 +181,13 @@ def main():
             continue
         datasets = json.loads(data_file.read_text(encoding="utf-8"))
         for ds in datasets:
-            # 基本字段校验
+            # Basic field validation
             if "slug" not in ds or not ds["slug"]:
                 raise RuntimeError(f"dataset missing slug: {ds}")
             build_dataset_page(site, ds, lang)
         build_index(site, datasets, lang)
 
-    print("✅ All pages built successfully.")
+    print("All pages built successfully.")
 
 if __name__ == "__main__":
     main()

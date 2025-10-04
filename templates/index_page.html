@@ -12,7 +12,7 @@
     <a class="brand" href="index-{{LANG_SUFFIX}}.html">{{SITE_TITLE}}</a>
     <nav class="nav">
       <a href="index-{{LANG_SUFFIX}}.html">{{NAV_HOME}}</a>
-      <a href="contact{{'-en' if LANG_SUFFIX=='en' else ''}}.html">{{NAV_CONTACT}}</a>
+      <a href="{{CONTACT_HREF}}">{{NAV_CONTACT}}</a>
       <a href="index-{{ALT_LANG_SUFFIX}}.html">{{NAV_SWITCH}}</a>
     </nav>
   </div>
@@ -35,3 +35,4 @@
 </footer>
 </body>
 </html>
+
