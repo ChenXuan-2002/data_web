@@ -3,7 +3,8 @@
     "slug": "hiv-selftesting-msm-chengdu-2022",
     "title": "中国MSM人群HIV自检行为调查数据库（成都，2022）",
     "summary": "横断面调查（2022年3–5月，成都），基于IMB模型；非随机抽样；有效样本499（响应率82%）。",
-    "methods_html": "<h2>研究介绍</h2><p>本数据库主要研究目的是基于信息动机行为技能模型的中国男男性行为人群HIV自检行为影响因素分析。该研究为横断面性质，于2022年3月到5月于中国成都开展调查，抽样方式为非随机抽样，研究参与者通过与当地同志友好组织（成都市同乐健康咨询服务中心）合作招募，主要有三种招募途径：(1) 在同乐接受艾滋病检测与咨询服务的男男性行为者；(2) 在男男性行为者聚集场所（酒吧、浴场等）的外展调查；(3) 通过同乐志愿者同伴网络在线邀请的男男性行为者。共接触到610人，有效参与者499名，响应率为82%。</p><h2>问卷和编码</h2><p>（1）一般人口学特征：年龄、民族、居住地、受教育程度、婚姻状况、工作状态、个人月均收入、性取向</p><p>（2）性行为发生情况：过去6个月性行为发生方式、固定/临时性伴数、安全套使用情况、药物使用情况、性病史、群交性行为发生情况</p><p>（3）HIV检测行为相关：过去6个月/终生HIV检测情况、检测次数、检测方式、检测满意度</p><p>（4）HIV信息：HIV预防、识别、治疗和自检相关知识</p><p>（5）HIV检测动机：HIV风险感知、检测行为意图、社会规范、检测态度</p><p>（6）HIV检测行为技能：HIV检测自我效能、感知困难度</p><p>（7）额外变量：社会支持（情感、物质、信息、陪伴）、HIV感染预期污名、MSM内化污名、HIV检测阴性反应</p><p>（8）纳入排出标准：自愿参与、年龄（18及以上）、性别（男）、最近6个月发生男男性行为、问卷完成时长（6分钟及以上）、无大量重复及存在明显的逻辑错误</p>",
+    "methods_html": "<h2>研究介绍</h2><p>本数据库主要研究目的是基于信息动机行为技能模型的中国男男性行为人群HIV自检行为影响因素分析。该研究为横断面性质，于2022年3月到5月于中国成都开展调查，抽样方式为非随机抽样，研究参与者通过与当地同志友好组织（成都市同乐健康咨询服务中心）合作招募，主要有三种招募途径：(1) 在同乐接受艾滋病检测与咨询服务的男男性行为者；(2) 在男男性行为者聚集场所（酒吧、浴场等）的外展调查；(3) 通过同乐志愿者同伴网络在线邀请的男男性行为者。共接触到610人，有效参与者499名，响应率为82%。</p>",
+    "questionnaire_html": "<h2>问卷和编码</h2><p>（1）一般人口学特征：年龄、民族、居住地、受教育程度、婚姻状况、工作状态、个人月均收入、性取向</p><p>（2）性行为发生情况：过去6个月性行为发生方式、固定/临时性伴数、安全套使用情况、药物使用情况、性病史、群交性行为发生情况</p><p>（3）HIV检测行为相关：过去6个月/终生HIV检测情况、检测次数、检测方式、检测满意度</p><p>（4）HIV信息：HIV预防、识别、治疗和自检相关知识</p><p>（5）HIV检测动机：HIV风险感知、检测行为意图、社会规范、检测态度</p><p>（6）HIV检测行为技能：HIV检测自我效能、感知困难度</p><p>（7）额外变量：社会支持（情感、物质、信息、陪伴）、HIV感染预期污名、MSM内化污名、HIV检测阴性反应</p><p>（8）纳入排出标准：自愿参与、年龄（18及以上）、性别（男）、最近6个月发生男男性行为、问卷完成时长（6分钟及以上）、无大量重复及存在明显的逻辑错误</p>",
     "publications": [
       {
         "authors": "Zhu, Y., Li, Z., Chen, X., Yang, X., Shi, Y., Wang, X., Guo, Y., Gu, J., Hao, C., Hao, Y., Cao, W., & Li, J.",
@@ -12,16 +13,16 @@
         "venue": "Archives of sexual behavior",
         "doi": "10.1007/s10508-025-03212-4",
         "url": "https://doi.org/10.1007/s10508-025-03212-4",
-        "abstract": "HIV self-testing (HIVST) has been shown to complement existing facility-based testing services and promote regular HIV testing among men who have sex with men (MSM). However, HIVST uptake among Chinese MSM remains suboptimal, with existing studies reporting a testing rate below 50%. While the Information-Motivation-Behavioral Skills (IMB) model has often been employed to understand health behaviors, its application to quantitatively investigate HIVST remains limited. An anonymous cross-sectional survey was conducted among 499 eligible MSM in Chengdu, China, from March to May 2022. The psychometric properties of the IMB components were validated using confirmatory factor analysis and Analysis of Moment Structures. The associations between IMB factors and HIVST were explored through univariate and multivariate logistic regression analyses. Factors identified in the regression analyses were subsequently included in a structural equation modeling framework. A total of 178 individuals (35.7%) reported HIVST in the last 6 months. Higher self-testing knowledge (adjusted odds ratio, aOR = 1.54, 95% CI: 1.07-2.23), positive attitudes toward self-testing—specifically regarding test accuracy (aOR = 1.29, 95% CI: 1.02-1.63) and confidentiality (aOR = 1.33, 95% CI: 1.10-1.62)—and greater behavioral skills related to self-testing (aOR = 1.11, 95% CI: 1.04-1.20) were independently associated with higher HIVST uptake. In the IMB model, information (β = 0.118, p = 0.027), motivation (β = 0.263, p < 0.001), and behavioral skills (β = 0.149, p = 0.002) each demonstrated a direct positive effect on HIVST. Additionally, behavioral skills partially mediated the effects between information (β = 0.235, p < 0.001) and motivation (β = 0.131, p = 0.010) on HIVST. These findings indicate that interventions targeting IMB components are essential for improving HIVST uptake among Chinese MSM. In particular, health education focusing on self-testing knowledge, assurance of test kit validity, and empowerment through skill-building interventions may facilitate greater adoption of HIVST in this population."
+        "abstract": "HIV self-testing (HIVST) has been shown to complement existing facility-based testing services and promote regular HIV testing among men who have sex with men (MSM). However, HIVST uptake among Chinese MSM remains suboptimal..."
       },
       {
         "authors": "Shi, Z., Li, J., Lin, H., Wang, X., Cao, W., & Shi, Y.",
         "year": 2024,
-        "title": "Low Level of Accurate Knowledge of Undetectable Equals Untransmittable (U = U) Among Men Who Have Sex with Men (MSM) Challenges U = U Achievement in Chengdu, Southwestern China",
+        "title": "Low Level of Accurate Knowledge of Undetectable Equals Untransmittable (U = U) Among Men Who Have Sex with Men (MSM)...",
         "venue": "AIDS and behavior, 28(12), 4146–4157",
         "doi": "10.1007/s10461-024-04502-z",
         "url": "https://doi.org/10.1007/s10461-024-04502-z",
-        "abstract": "The introduction of the undetectable equals untransmittable (U = U) statement significantly reduces HIV stigma and provides an empirical basis for achieving 'zero transmission.' U = U messaging has gained increasing support and is well-developed in several countries. However, the current status of accurate knowledge of U = U and its associated factors among men who have sex with men (MSM) in China remains unclear. We conducted a cross-sectional survey among MSM recruited in Chengdu, China, from March to May 2022 to investigate the percentage of those who knew U = U accurately and to explore associations between sexual risk behaviors, HIV testing, socio-behavioral measures, and accurate knowledge of U = U. Of 497 MSM included in our study, 23.4% (116/497) had accurate knowledge of U = U. More than half of the participants (63.2%, 314/497) reported multiple sexual partnerships, 15.7% (78/497) used substance during sex, 37.4% (186/497) reported inconsistent condom use, and 76.1% (378/497) took HIV testing in the past six months. Factors associated with accurate knowledge of U = U among MSM included substance use during sex (multivariate odds ratios ORm = 1.96; 95%CI: 1.13–3.41), HIV status tested in the last six months (ORm = 2.07; 95%CI: 1.14–3.77), HIV-related literacy (ORm = 1.41; 95%CI: 1.14–1.74) and perceived higher risk of HIV infection (ORm = 1.11; 95%CI: 1.02–1.21). The findings indicate that great challenges need to be conquered for U = U achievement among the MSM population in Chengdu, China. Intervention strategies should be prioritized in health education on high-risk behaviors such as group sex and substance use, information provision and counseling of U = U in HIV testing services, and encouraging U = U knowledge sharing among MSM with their partners in China."
+        "abstract": "The introduction of the undetectable equals untransmittable (U = U) statement significantly reduces HIV stigma..."
       },
       {
         "authors": "朱洋, 侯丰苏, 陈晓婷, 杨潇, 曹望楠, 郝元涛, 李菁华",
@@ -30,10 +31,11 @@
         "venue": "中华流行病学杂志, 44(3):452-456",
         "doi": "10.3760/cma.j.cn112338-20220705-00601",
         "url": "https://doi.org/10.3760/cma.j.cn112338-20220705-00601",
-        "abstract": "研究成都市MSM对重复HIV检测阴性的反应及与危险性行为的关联。方法 2022年3-5月与成都同乐健康咨询服务中心合作，采用方便抽样方法招募研究对象610名MSM。收集研究对象社会人口学特征、对HIV检测阴性的反应和性行为情况。采用单因素及多因素logistic回归模型分析HIV检测阴性反应与性行为的关联。结果 参加问卷调查579名（94.9%），纳入研究对象354名（61.1%），HIV检测阴性反应得分分别为强化安全（17.03±2.20）分、运气（7.50±1.87）分和低风险感知（8.87±3.62）分。多因素logistic回归模型结果显示，强化安全与发生群交呈负相关（aOR=0.80，95%CI：0.67~0.95）；运气与临时性行为（aOR=1.20，95%CI：1.06~1.35）、不坚持使用安全套（aOR=1.21，95%CI：1.06~1.37）、发生群交（aOR=1.26，95%CI：1.00~1.60）和多性伴（aOR=1.24，95%CI：1.09~1.42）与危险性行为呈正相关。低风险感知仅与多性伴（aOR=1.08，95%CI：1.01~1.15）呈正相关。结论 成都市MSM对重复HIV检测阴性反应的强化安全和运气维度认可程度较高，自身风险感知良好。在提供HIV检测和咨询服务期间，干预策略和风险咨询应重视向对运气认可较高的个体倾斜，帮助其树立安全性行为意识，减少侥幸心理带来的负面影响。"
+        "abstract": "研究成都市MSM对重复HIV检测阴性的反应及与危险性行为的关联。方法 2022年3-5月与成都同乐健康咨询服务中心合作..."
       }
     ],
     "contact": "联系人：李菁華 副教授（澳门大学健康科学学院）。邮箱：lijinghua@um.edu.mo。申请访问时请附上研究目的、数据分析计划、所需变量，并说明成果署名及致谢安排。",
     "appendix_html": "<details><summary>📄 完整问卷（中文 PDF 原版式）</summary><object data='./hiv-selftesting-msm-chengdu-2022-full-cn.pdf#view=FitH' type='application/pdf' width='100%' height='1000px'><iframe src='./hiv-selftesting-msm-chengdu-2022-full-cn.pdf#view=FitH' width='100%' height='1000px'></iframe></object><p><a class='btn' href='./hiv-selftesting-msm-chengdu-2022-full-cn.pdf' download>下载中文问卷 PDF</a></p></details>"
   }
 ]
+

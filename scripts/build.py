@@ -125,6 +125,7 @@ def i18n_labels(lang):
             "NAV_CONTACT": "联系方式 / 申请",
             "NAV_SWITCH": "English",
             "I18N_METHODS": "实验方法",
+            "I18N_QUESTIONNAIRE": "问卷和编码",  # ✅ 新增标签
             "I18N_PUBLICATIONS": "已发表论文",
             "I18N_CONTACT": "联系方式",
             "I18N_OR": "",
@@ -141,6 +142,7 @@ def i18n_labels(lang):
         "NAV_CONTACT": "Contact",
         "NAV_SWITCH": "中文",
         "I18N_METHODS": "Methods",
+        "I18N_QUESTIONNAIRE": "Questionnaire & Coding",  # ✅ 新增标签
         "I18N_PUBLICATIONS": "Publications",
         "I18N_CONTACT": "Contact",
         "I18N_OR": "",
@@ -180,11 +182,13 @@ def build_dataset_page(site, ds, lang):
     html_out = html_out.replace("{{DATASET_TITLE}}", esc(ds.get("title", "")))
     html_out = html_out.replace("{{SUMMARY}}", esc(ds.get("summary", "")))
     html_out = html_out.replace("{{I18N_METHODS}}", L["I18N_METHODS"])
+    html_out = html_out.replace("{{I18N_QUESTIONNAIRE}}", L["I18N_QUESTIONNAIRE"])  # ✅ 新增标签替换
     html_out = html_out.replace("{{I18N_PUBLICATIONS}}", L["I18N_PUBLICATIONS"])
     html_out = html_out.replace("{{I18N_CONTACT}}", L["I18N_CONTACT"])
     html_out = html_out.replace("{{I18N_OR}}", L["I18N_OR"])
     html_out = html_out.replace("{{I18N_APPENDIX}}", L["I18N_APPENDIX"])
     html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html", ""))
+    html_out = html_out.replace("{{QUESTIONNAIRE_HTML}}", ds.get("questionnaire_html", ""))  # ✅ 新增插入行
     # 关键：这里传入 lang，摘要标签中英文自动切换，并且摘要内容跳过实体化
     html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications_with_abstracts(ds.get("publications", []), lang))
     # 联系方式正文保留文字（转义），不再追加任何 mailto 行
