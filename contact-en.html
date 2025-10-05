@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact / Data Access Request</title>
+  <title>Professor Jinghua Li Laboratory Databases</title>
   <link rel="stylesheet" href="assets/main.css" />
 </head>
 <body>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="index-en.html" id="brand">XX Laboratory Databases</a>
+    <a class="brand" href="index-en.html" id="brand">Professor Jinghua Li Laboratory Databases</a>
     <nav class="nav">
       <a href="index-en.html">Home</a>
       <a href="contact-en.html">Contact / Apply</a>
@@ -23,7 +23,10 @@
 
   <section class="card">
     <h2>Contact</h2>
-    <p>Dataset administrator email: <a id="contactEmail" href="#">loading...</a></p>
+    <p>Contact person: <span id="contactPerson">Loading…</span></p>
+    <p>Title: <span id="contactTitle">Loading…</span></p>
+    <p>Affiliation: <span id="contactAffiliation">Loading…</span></p>
+    <p>Email: <a id="contactEmail" href="#">lijinghua@um.edu.mo</a></p>
     <p>If you wish to request access, please complete the form below (an email draft will be prepared automatically).</p>
   </section>
 
@@ -45,7 +48,7 @@
       <div id="datasetChecks" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px;"></div>
 
       <label>Purpose of use
-        <textarea name="purpose" rows="5" placeholder="Briefly describe your research objectives, planned use period, expected outputs, and acknowledgement plan." required></textarea>
+        <textarea name="purpose" rows="5" placeholder="Describe your research objectives, planned use period, expected outputs, and acknowledgement plan." required></textarea>
       </label>
 
       <label class="checkbox">
@@ -63,7 +66,7 @@
 
 <footer class="site-footer">
   <div class="container">
-    <small id="footerMeta">© XX Laboratory · All Rights Reserved</small>
+    <small id="footerMeta">© Professor Jinghua Li Laboratory</small>
   </div>
 </footer>
 

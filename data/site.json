@@ -1,8 +1,18 @@
 {
-  "site_title": "XX实验室数据库",
-  "owner": "李菁华教授课题组",
+  "site_title": "李菁華教授实验室数据库",
+  "site_title_en": "Professor Jinghua Li Laboratory Databases",
+  "owner": "李菁華教授实验室",
+  "owner_en": "Professor Jinghua Li Laboratory",
   "contact_email": "lijinghua@um.edu.mo",
-  "apply_url": "", 
+  "contact_person_zh": "李菁華 副教授",
+  "contact_person_en": "Associate Professor Jinghua LI",
+  "contact_title_zh": "澳门大学健康科学学院 副教授",
+  "contact_title_en": "Associate Professor, Faculty of Health Sciences, University of Macau",
+  "contact_affiliation_zh": "澳门大学健康科学学院",
+  "contact_affiliation_en": "Faculty of Health Sciences, University of Macau",
+  "apply_url": "",
   "license": "CC BY-NC 4.0",
-  "affiliation": "Faculty of Health Sciences (FHS), University of Macau"
+  "affiliation": "Faculty of Health Sciences (FHS), University of Macau",
+  "affiliation_zh": "澳门大学健康科学学院",
+  "affiliation_en": "Faculty of Health Sciences (FHS), University of Macau"
 }
