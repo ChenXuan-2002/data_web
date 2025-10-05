@@ -40,7 +40,19 @@ def to_ascii_entities(s: str) -> str:
     return ''.join(ch if ord(ch) < 128 else f"&#{ord(ch)};" for ch in s)
 
 def finalize_html(s: str) -> str:
-    return to_ascii_entities(s) if FORCE_ASCII_ENTITIES else s
+    """
+    仅对非摘要区域做数字实体化，防止中文摘要被拆分/截断。
+    使用标记 <!--NO_ENTITY--> 包裹需要跳过实体化的片段（摘要）。
+    """
+    if not FORCE_ASCII_ENTITIES:
+        return s
+    if "<!--NO_ENTITY-->" not in s:
+        return to_ascii_entities(s)
+    parts = s.split("<!--NO_ENTITY-->")
+    # 偶数索引（0,2,4,...)为普通区域，做实体化；奇数索引为需要保留的摘要区域
+    for i in range(0, len(parts), 2):
+        parts[i] = to_ascii_entities(parts[i])
+    return "".join(parts)
 
 # ---------- 新增：移除模板里残留的 mailto 段 ----------
 _MAILTO_P = re.compile(
@@ -54,8 +66,12 @@ def strip_mailto_paragraphs(html_text: str) -> str:
     html_text = _EMPTY_P.sub("", html_text)
     return html_text
 
-def render_publications_with_abstracts(pubs):
-    """完整渲染论文列表：摘要不截断、不裁剪（仅把换行并成空格以免破排）。"""
+def render_publications_with_abstracts(pubs, lang="en"):
+    """
+    完整渲染论文列表：
+    - 保留摘要原文（不转义、不实体化），仅合并换行；
+    - 中文页摘要标签用“摘要：”，英文页用“Abstract:”
+    """
     items = []
     for p in pubs or []:
         authors = esc(p.get("authors",""))
@@ -70,9 +86,13 @@ def render_publications_with_abstracts(pubs):
         elif url:
             link = f'<a href="{esc(url)}" target="_blank" rel="noopener">Link</a>'
 
-        # 摘要：保留原文，不转义；只把换行合并为空格避免列表里断行异常
-        abstract = (p.get("abstract","") or "").replace("\n", " ").strip()
-        abstract_html = f"<p><strong>Abstract:</strong> {abstract}</p>" if abstract else ""
+        # 摘要：保留原文，不转义；仅把换行合并为空格避免破排
+        abstract_raw = (p.get("abstract","") or "").replace("\n", " ").strip()
+        if abstract_raw:
+            label = "摘要：" if lang == "zh" else "Abstract:"
+            abstract_html = f"<!--NO_ENTITY--><p><strong>{label}</strong> {abstract_raw}</p>"
+        else:
+            abstract_html = ""
 
         li = (
             f"<li><p><strong>{authors}</strong> ({year}). "
@@ -107,7 +127,7 @@ def i18n_labels(lang):
             "I18N_METHODS": "实验方法",
             "I18N_PUBLICATIONS": "已发表论文",
             "I18N_CONTACT": "联系方式",
-            "I18N_OR": "",  # 删除“或直接邮件联系”
+            "I18N_OR": "",
             "I18N_APPENDIX": "附录（问卷 PDF）",
             "LEAD_HOME": "以下为 李菁華教授实验室公开的数据库",
             "SECTION_TITLE": "数据库列表",
@@ -123,7 +143,7 @@ def i18n_labels(lang):
         "I18N_METHODS": "Methods",
         "I18N_PUBLICATIONS": "Publications",
         "I18N_CONTACT": "Contact",
-        "I18N_OR": "",  # 删除“or contact via email”
+        "I18N_OR": "",
         "I18N_APPENDIX": "Appendix (Questionnaire PDF)",
         "LEAD_HOME": "Datasets released by Professor Jinghua Li Laboratory",
         "SECTION_TITLE": "Databases",
@@ -165,7 +185,8 @@ def build_dataset_page(site, ds, lang):
     html_out = html_out.replace("{{I18N_OR}}", L["I18N_OR"])
     html_out = html_out.replace("{{I18N_APPENDIX}}", L["I18N_APPENDIX"])
     html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html", ""))
-    html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications_with_abstracts(ds.get("publications", [])))
+    # 关键：这里传入 lang，摘要标签中英文自动切换，并且摘要内容跳过实体化
+    html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications_with_abstracts(ds.get("publications", []), lang))
     # 联系方式正文保留文字（转义），不再追加任何 mailto 行
     html_out = html_out.replace("{{CONTACT_TEXT}}", f"<p>{esc(ds.get('contact', ''))}</p>")
     html_out = html_out.replace("{{APPENDIX_HTML}}", ds.get("appendix_html", ""))
@@ -178,7 +199,7 @@ def build_dataset_page(site, ds, lang):
     # 关键：移除模板里残留的 mailto 段并清空空<p>
     html_out = strip_mailto_paragraphs(html_out)
 
-    # 实体化，杜绝乱码
+    # 实体化，杜绝乱码（摘要段落已通过 NO_ENTITY 跳过）
     html_out = finalize_html(html_out)
 
     OUT_DATASETS.mkdir(parents=True, exist_ok=True)
@@ -205,7 +226,6 @@ def build_index(site, datasets, lang):
     html_out = html_out.replace("{{ALT_LANG_SUFFIX}}", L["ALT_LANG_SUFFIX"])
     html_out = html_out.replace("{{CONTACT_HREF}}", "contact-en.html" if lang == "en" else "contact.html")
 
-    # ✅ 去掉“（中文）”“(English)”括号
     page_title = site_title if lang == "zh" else site.get("site_title_en", site_title)
     html_out = html_out.replace("{{PAGE_TITLE}}", page_title)
     html_out = html_out.replace("{{LEAD}}", L["LEAD_HOME"])

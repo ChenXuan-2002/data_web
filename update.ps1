@@ -1,30 +1,11 @@
-# ============================
-# data_web 自动构建与推送脚本
-# ============================
-
-# 1️⃣ 切换到项目根目录
-Set-Location "D:\data_web"
-
-Write-Host "=== 清理旧的 HTML 文件 ==="
-# 删除旧的 index 和 datasets 下的所有 html
-Remove-Item index-zh.html, index-en.html -Force -ErrorAction SilentlyContinue
-Remove-Item datasets\*.html -Force -ErrorAction SilentlyContinue
-
-# 2️⃣ 运行 build.py 生成新页面
-Write-Host "=== 重新构建网站 ==="
+# 1️⃣ 运行构建脚本，生成所有中英文详情页与索引页
 python scripts\build.py
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ build.py 运行出错，已停止。" -ForegroundColor Red
-    exit 1
-}
 
-# 3️⃣ Git 操作
-Write-Host "=== 提交到 GitHub ==="
+# 2️⃣ 将所有更改加入暂存区
 git add .
-$time = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-git commit -m "auto update website at $time" 2>$null
-git push origin main
 
-# 4️⃣ 完成提示
-Write-Host "`n✅ 网站已成功更新到 GitHub Pages！"
-Write-Host "👉 打开: https://chenxuan-2002.github.io/data_web/"
+# 3️⃣ 提交更新（可改提交信息）
+git commit -m "update bilingual dataset pages and build script"
+
+# 4️⃣ 推送到 GitHub（如果你的主分支是 main）
+git push origin main
