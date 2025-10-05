@@ -3,7 +3,8 @@
 Build bilingual dataset website (Professor Jinghua Li Laboratory)
 -----------------------------------------------------------------
 - 去除标题括号（不再显示“（中文）”“(English)”）
-- 删除联系段落中“或直接邮件联系”字样
+- 删除联系段落中“或直接邮件联系”字样 + 强行移除模板里的 mailto 残留行
+- 摘要保留完整（不截断、不转义标点）
 - UTF-8 强制、页脚防乱码（实体化版）
 """
 
@@ -41,7 +42,20 @@ def to_ascii_entities(s: str) -> str:
 def finalize_html(s: str) -> str:
     return to_ascii_entities(s) if FORCE_ASCII_ENTITIES else s
 
+# ---------- 新增：移除模板里残留的 mailto 段 ----------
+_MAILTO_P = re.compile(
+    r"<p>\s*(?:{{I18N_OR}}\s*)?(?:<a[^>]+href=['\"]mailto:[^'\"]+['\"][^>]*>[^<]*</a>)\s*</p>",
+    flags=re.I
+)
+_EMPTY_P = re.compile(r"<p>\s*</p>", re.I)
+
+def strip_mailto_paragraphs(html_text: str) -> str:
+    html_text = _MAILTO_P.sub("", html_text)
+    html_text = _EMPTY_P.sub("", html_text)
+    return html_text
+
 def render_publications_with_abstracts(pubs):
+    """完整渲染论文列表：摘要不截断、不裁剪（仅把换行并成空格以免破排）。"""
     items = []
     for p in pubs or []:
         authors = esc(p.get("authors",""))
@@ -55,9 +69,15 @@ def render_publications_with_abstracts(pubs):
             link = f'<a href="https://doi.org/{esc(doi)}" target="_blank" rel="noopener">DOI:{esc(doi)}</a>'
         elif url:
             link = f'<a href="{esc(url)}" target="_blank" rel="noopener">Link</a>'
-        abstract = p.get("abstract","")
+
+        # 摘要：保留原文，不转义；只把换行合并为空格避免列表里断行异常
+        abstract = (p.get("abstract","") or "").replace("\n", " ").strip()
         abstract_html = f"<p><strong>Abstract:</strong> {abstract}</p>" if abstract else ""
-        li = f"<li><p><strong>{authors}</strong> ({year}). <em>{title}</em>. {venue}. {link}</p>{abstract_html}</li>"
+
+        li = (
+            f"<li><p><strong>{authors}</strong> ({year}). "
+            f"<em>{title}</em>. {venue}. {link}</p>{abstract_html}</li>"
+        )
         items.append(li)
     return "\n".join(items) if items else "<li>-</li>"
 
@@ -146,12 +166,19 @@ def build_dataset_page(site, ds, lang):
     html_out = html_out.replace("{{I18N_APPENDIX}}", L["I18N_APPENDIX"])
     html_out = html_out.replace("{{METHODS_HTML}}", ds.get("methods_html", ""))
     html_out = html_out.replace("{{PUBLICATIONS_LIST}}", render_publications_with_abstracts(ds.get("publications", [])))
+    # 联系方式正文保留文字（转义），不再追加任何 mailto 行
     html_out = html_out.replace("{{CONTACT_TEXT}}", f"<p>{esc(ds.get('contact', ''))}</p>")
     html_out = html_out.replace("{{APPENDIX_HTML}}", ds.get("appendix_html", ""))
     html_out = html_out.replace("{{CONTACT_EMAIL}}", esc(site.get("contact_email", "")))
     html_out = html_out.replace("{{JSONLD}}", build_jsonld(site, ds, lang))
 
+    # 覆盖页脚
     html_out = force_footer(html_out, datetime.now().year, esc(owner_text), esc(affiliation_text), esc(site.get("license","")))
+
+    # 关键：移除模板里残留的 mailto 段并清空空<p>
+    html_out = strip_mailto_paragraphs(html_out)
+
+    # 实体化，杜绝乱码
     html_out = finalize_html(html_out)
 
     OUT_DATASETS.mkdir(parents=True, exist_ok=True)
@@ -204,6 +231,7 @@ def build_index(site, datasets, lang):
         )
     html_out = html_out.replace("{{DATASET_LIST}}", "\n".join(cards))
 
+    # 页脚 & 实体化
     html_out = force_footer(html_out, datetime.now().year, esc(owner_text), esc(affiliation_text))
     html_out = finalize_html(html_out)
 
